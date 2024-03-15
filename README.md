@@ -1,8 +1,10 @@
 # Nmap range scan tool
 
 ## requiment
-- nmap
+- '' apt install nmap ''
+- '' pip install python-dotenv ''
 
 ## Usage
+- '' cp sample.env .env ''
 - edit ip range and port range
-- python3 main.py
+- '' python3 main.py ''
