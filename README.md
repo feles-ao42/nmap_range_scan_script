@@ -1,4 +1,4 @@
-# Nmap range scan tool
+# Range nmap tool
 
 ## requiment
 - ` apt install nmap `
