@@ -20,7 +20,7 @@ def run_nmap_scan(ip_range, ports):
 
 if __name__ == "__main__":
     # Specify the IP range and ports to scan
-    ip_range = "133.27.186.64/26"  # Example: From 192.168.1.0 to 192.168.1.255
+    ip_range = "192.168.1.0/24"  # Example: From 192.168.1.0 to 192.168.1.255
     #ports = "22,80,443"  # Example: Scan ports 22, 80 and 443
     ports = "1-65535" #Example: Scan all ports
 
