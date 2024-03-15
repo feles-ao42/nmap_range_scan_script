@@ -1,4 +1,3 @@
 DS_Store
-scan_results.csv
-nmap_scan_results.xml
 .env
+result/*

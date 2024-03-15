@@ -3,15 +3,27 @@ import subprocess
 import xml.etree.ElementTree as ET
 import csv
 from dotenv import load_dotenv
+from datetime import datetime
 
 def run_nmap_scan(ip_range, ports):
-    # Execute NMap scan in XML format and output to a temporary file
-    output_file = "nmap_scan_results.xml"
+    # Ensure the /result directory exists
+    result_dir = "./result"
+    os.makedirs(result_dir, exist_ok=True)
+    
+    # Generate file name based on current date and time
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    output_file = os.path.join(result_dir, f"nmap_scan_results_{timestamp}.xml")
+    csv_file = os.path.join(result_dir, f"scan_results_{timestamp}.csv")
+    
+    # Execute NMap scan in XML format and save to a temporary file
     command = ["nmap", "-p", ports, ip_range, "-oX", output_file]
     subprocess.run(command)
     
     # Parse the XML file and save the results to a CSV file
-    parse_nmap_xml_to_csv(output_file, "scan_results.csv")
+    parse_nmap_xml_to_csv(output_file, csv_file)
+    
+    # Remove the temporary XML file after parsing
+    os.remove(output_file)
 
 def parse_nmap_xml_to_csv(xml_file, csv_file):
     tree = ET.parse(xml_file)
@@ -42,7 +54,7 @@ def parse_nmap_xml_to_csv(xml_file, csv_file):
 
 if __name__ == "__main__":
     load_dotenv()  # Load environment variables from .env file
-    ip_range = os.getenv("IP_RANGE")  # Read IP range from .env file
-    ports = os.getenv("PORTS")  # Read ports from .env file
+    ip_range = os.getenv("IP_RANGE")  # Read the IP range from .env file
+    ports = os.getenv("PORTS")  # Read the ports from .env file
     run_nmap_scan(ip_range, ports)
 
